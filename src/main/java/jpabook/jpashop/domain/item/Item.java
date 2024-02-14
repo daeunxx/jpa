@@ -16,7 +16,7 @@ public abstract class Item {
 
     private String name;
 
-    private int prive;
+    private int price;
 
     private int stockQuantity;
 }
