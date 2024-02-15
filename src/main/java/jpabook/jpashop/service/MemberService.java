@@ -28,7 +28,6 @@ public class MemberService {
         if(!findMembers.isEmpty()){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
-
     }
 
     // 회원 전체 조회
