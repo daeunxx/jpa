@@ -17,16 +17,14 @@
                    placeholder="가격을 입력하세요" /> </div>
         <div class="form-group">
             <label th:for="stockQuantity">수량</label>
-            <input type="number" th:field="*{stockQuantity}" class="form-
-control" placeholder="수량을 입력하세요" /> </div>
+            <input type="number" th:field="*{stockQuantity}" class="form-control" placeholder="수량을 입력하세요" /> </div>
         <div class="form-group">
             <label th:for="author">저자</label>
             <input type="text" th:field="*{author}" class="form-control"
                    placeholder="저자를 입력하세요" /> </div>
         <div class="form-group">
             <label th:for="isbn">ISBN</label>
-            <input type="text" th:field="*{isbn}" class="form-control"
-                   placeholder="ISBN을 입력하세요" /> </div>
+            <input type="text" th:field="*{isbn}" class="form-control" placeholder="ISBN을 입력하세요" /> </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <div th:replace="fragments/footer :: footer" />
