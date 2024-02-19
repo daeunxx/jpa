@@ -5,6 +5,8 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderSearch;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.order.query.OrderSimpleQueryDto;
+import jpabook.jpashop.repository.order.query.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +50,15 @@ public class OrderSimpleApiController {
         // Order N개
         // N+1 => 1 + 회원 N + 배송 N
         return orderRepository.findAllByString(new OrderSearch()).stream()
+                .map(SimpleOrderDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> orderV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+
+        return orders.stream()
                 .map(SimpleOrderDto::new)
                 .collect(Collectors.toList());
     }
