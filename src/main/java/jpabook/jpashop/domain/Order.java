@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.*;
-import static jakarta.persistence.FetchType.*;
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "orders")
