@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * xToOne(ManyToOne, OneToOne) 관계 최적회
+ * Order
+ * Order -> Member
+ * Order -> Delivery
+ */
 @RestController
 @RequiredArgsConstructor
 public class OrderSimpleApiController {

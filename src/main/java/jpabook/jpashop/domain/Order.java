@@ -1,6 +1,5 @@
 package jpabook.jpashop.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,16 +26,13 @@ public class Order {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
-    @JsonIgnore
     private Member member;  // 주문 회원
 
     @OneToMany(mappedBy = "order", cascade = ALL)
-    @JsonIgnore
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "delivery_id")
-    @JsonIgnore
     private Delivery delivery;  // 베송 정보
 
     private LocalDateTime orderDate;    // 주문 시간
