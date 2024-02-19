@@ -28,6 +28,8 @@ public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
 
+    private OrderSimpleQueryRepository orderSimpleQueryRepository;
+
     /**
      * V1. 엔티티 직접 노출
      * - Hibernate5Module 모듈 등록, LAZY = null 처리
@@ -61,6 +63,11 @@ public class OrderSimpleApiController {
         return orders.stream()
                 .map(SimpleOrderDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> orderV4() {
+        return orderSimpleQueryRepository.findOrderDtos();
     }
 
     @Data
