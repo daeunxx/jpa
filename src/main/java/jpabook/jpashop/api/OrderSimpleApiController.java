@@ -28,7 +28,7 @@ public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
 
-    private OrderSimpleQueryRepository orderSimpleQueryRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     /**
      * V1. 엔티티 직접 노출
@@ -39,14 +39,18 @@ public class OrderSimpleApiController {
     public List<Order> ordersV1() {
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
 
-        for(Order order : orders) {
+         orders.forEach(order -> {
             order.getMember().getName();    // LAZY 강제 초기화
             order.getDelivery().getAddress();
-        }
+        });
 
         return orders;
     }
 
+    /**
+     * V2. 엔티티를 조회해서 DTO로 변환(fetch join 사용X)
+     * - 단점: 지연로딩으로 쿼리 N번 호출
+     */
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> orderV2() {
         // Order N개
@@ -56,15 +60,22 @@ public class OrderSimpleApiController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * V3. 엔티티를 조회해서 DTO로 변환(fetch join 사용O)
+     * - fetch join으로 쿼리 1번 호출
+     */
     @GetMapping("/api/v3/simple-orders")
     public List<SimpleOrderDto> orderV3() {
-        List<Order> orders = orderRepository.findAllWithMemberDelivery();
-
-        return orders.stream()
+        return orderRepository.findAllWithMemberDelivery().stream()
                 .map(SimpleOrderDto::new)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * V4. JPA에서 DTO로 바로 조회
+     * - 쿼리 1번 호출
+     * - select 절에서 원하는 데이터만 선택해서 조회
+     */
     @GetMapping("/api/v4/simple-orders")
     public List<OrderSimpleQueryDto> orderV4() {
         return orderSimpleQueryRepository.findOrderDtos();
