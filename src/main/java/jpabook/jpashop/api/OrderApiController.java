@@ -74,6 +74,7 @@ public class OrderApiController {
      * V3.1. 엔티티를 조회해서 DTO로 변환
      * - xToOne 관계만 우선 모두 fetch join으로 최적화
      * - 컬렉션 관계는 hibernate.default_batch_fetch_size 로 최적화
+     * - 페이징 가능
      */
     @GetMapping("/api/v3.1/orders")
     public List<OrderDto> ordersV3_page(
@@ -92,6 +93,7 @@ public class OrderApiController {
      * - query : 루트 1번, 컬렉션 N번
      * - 컬렉션은 별도로 조회
      * - 단건 조회에서 주로 사용하는 방식
+     * - 페이징 가능
      */
     @GetMapping("/api/v4/orders")
     public List<OrderQueryDto> orderV4() {
@@ -102,11 +104,17 @@ public class OrderApiController {
      * V5. JPA에서 DTO 바로 조회 | 컬렉션 1번 조회
      * - query : 루트 1번, 컬렉션 1번
      * - 데이터를 한꺼번에 처리할 때 주로 사용하는 방식
+     * - 페이징 가능
      */
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> orderV5() {
         return orderQueryRepository.findAllByDtoOptimization();
     }
+
+//    @GetMapping("/api/v6/orders")
+//    public List<OrderQueryDto> orderV6() {
+//        List<OrderFlatData> flats = orderQueryRepository.findAllByFlat();
+//    }
 
     @Data
     static class OrderDto {
