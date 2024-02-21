@@ -11,6 +11,7 @@ spring:
       hibernate:
 #        show_sql: true                               # sql을 system.out을 통해 찍음
         format_sql: true
+        default_batch_fetch_size: 100
   thymeleaf:
     prefix: classpath:/templates/
     cache: false
