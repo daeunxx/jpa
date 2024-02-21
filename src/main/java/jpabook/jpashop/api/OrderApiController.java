@@ -88,14 +88,24 @@ public class OrderApiController {
     }
 
     /**
-     * V4. JPA에서 DTO로 바로 조회
-     * - 컬렉션 1 + N 조회(query : 루트 1번, 컬렉션 N번)
+     * V4. JPA에서 DTO로 바로 조회 | 컬렉션 N반 조회
+     * - query : 루트 1번, 컬렉션 N번
      * - 컬렉션은 별도로 조회
-     * - 단건 조회에서 많이 사용하는 방식
+     * - 단건 조회에서 주로 사용하는 방식
      */
     @GetMapping("/api/v4/orders")
     public List<OrderQueryDto> orderV4() {
         return orderQueryRepository.findOrderQueryDtos();
+    }
+
+    /**
+     * V5. JPA에서 DTO 바로 조회 | 컬렉션 1번 조회
+     * - query : 루트 1번, 컬렉션 1번
+     * - 데이터를 한꺼번에 처리할 때 주로 사용하는 방식
+     */
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> orderV5() {
+        return orderQueryRepository.findAllByDtoOptimization();
     }
 
     @Data
