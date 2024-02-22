@@ -30,9 +30,7 @@ public class OrderQueryRepository {
 
     public List<OrderQueryDto> findAllByDtoOptimization() {
         List<OrderQueryDto> orders = findOrders();
-
         List<Long> orderIds = toOrderIds(orders);
-
         Map<Long, List<OrderItemQueryDto>> orderItemMap = findOrderItemsMap(orderIds);
 
         orders.forEach(order -> order.setOrderItems(orderItemMap.get(order.getOrderId())));

@@ -12,7 +12,9 @@ public class JpashopApplication {
         SpringApplication.run(JpashopApplication.class, args);
     }
 
-    // 기본적으로 초기화 된 프록시 객체만 노출, 초기화되지 않은 객채는 노출 안함
+    /**
+     * 기본적으로 초기화 된 프록시 객체만 노출, 초기화되지 않은 객채는 노출 안함
+     */
     @Bean
     Hibernate5JakartaModule hibernate5JakartaModule() {
         Hibernate5JakartaModule hibernate5JakartaModule = new Hibernate5JakartaModule();

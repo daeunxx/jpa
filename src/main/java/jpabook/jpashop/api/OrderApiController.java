@@ -89,7 +89,7 @@ public class OrderApiController {
     }
 
     /**
-     * V4. JPA에서 DTO로 바로 조회 | 컬렉션 N반 조회
+     * V4. JPA에서 DTO로 바로 조회 | 컬렉션 N번 조회
      * - query : 루트 1번, 컬렉션 N번
      * - 컬렉션은 별도로 조회
      * - 단건 조회에서 주로 사용하는 방식
