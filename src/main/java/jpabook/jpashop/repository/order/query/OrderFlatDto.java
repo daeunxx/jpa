@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class OrderFlatData {
+public class OrderFlatDto {
 
     private Long orderId;
     private String name;
@@ -18,7 +18,7 @@ public class OrderFlatData {
     private int orderPrice;
     private int count;
 
-    public OrderFlatData(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus, Address address, String itemName, int orderPrice, int count) {
+    public OrderFlatDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus, Address address, String itemName, int orderPrice, int count) {
         this.orderId = orderId;
         this.name = name;
         this.orderDate = orderDate;

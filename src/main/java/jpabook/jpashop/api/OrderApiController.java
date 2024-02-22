@@ -2,6 +2,8 @@ package jpabook.jpashop.api;
 
 import jpabook.jpashop.domain.*;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.order.query.OrderFlatDto;
+import jpabook.jpashop.repository.order.query.OrderItemQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
@@ -12,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -111,10 +114,24 @@ public class OrderApiController {
         return orderQueryRepository.findAllByDtoOptimization();
     }
 
-//    @GetMapping("/api/v6/orders")
-//    public List<OrderQueryDto> orderV6() {
-//        List<OrderFlatData> flats = orderQueryRepository.findAllByFlat();
-//    }
+    /**
+     * V6. JPA에서 DTO 바로 조회
+     * - 1 query
+     * - 페이징 불가
+     * @return
+     */
+    @GetMapping("/api/v6/orders")
+    public List<OrderQueryDto> orderV6() {
+        List<OrderFlatDto> flats = orderQueryRepository.findAllByFlat();
+
+        Map<OrderQueryDto, List<OrderItemQueryDto>> orderItemMap = flats.stream()
+                .collect(groupingBy(o -> new OrderQueryDto(o.getOrderId(), o.getName(), o.getOrderDate(), o.getOrderStatus(), o.getAddress()),
+                        mapping(i -> new OrderItemQueryDto(i.getOrderId(), i.getItemName(), i.getOrderPrice(), i.getCount()), toList())));
+
+        return orderItemMap.entrySet().stream()
+                .map(m -> new OrderQueryDto(m.getKey().getOrderId(), m.getKey().getName(), m.getKey().getOrderDate(), m.getKey().getOrderStatus(), m.getKey().getAddress(), m.getValue()))
+                .collect(toList());
+    }
 
     @Data
     static class OrderDto {
