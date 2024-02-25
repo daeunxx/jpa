@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="회원 생성">
+    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="회원 수정">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JpaMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +82,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.JpaMain">
     <configuration name="JpaMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="JpaMain" />
       <module name="ex1-hello-jpa.main" />
@@ -89,9 +90,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in ex1-hello-jpa" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ex1-hello-jpa" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.JpaMain" />
+        <item itemvalue="JUnit.All in ex1-hello-jpa" />
       </list>
     </recent_temporary>
   </component>
@@ -114,7 +124,7 @@
       <workItem from="1708846412017" duration="3469000" />
       <workItem from="1708849896563" duration="2875000" />
       <workItem from="1708853187301" duration="419000" />
-      <workItem from="1708853612211" duration="983000" />
+      <workItem from="1708853612211" duration="2022000" />
     </task>
     <task id="LOCAL-00001" summary="프로젝트 설정 오류 수정">
       <option name="closed" value="true" />
@@ -132,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708854492117</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="회원 수정">
+      <option name="closed" value="true" />
+      <created>1708854921385</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1708854921385</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,14 +182,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="프로젝트 설정 오류 수정" />
     <MESSAGE value="회원 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="회원 생성" />
+    <MESSAGE value="회원 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="회원 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/JpaMain.java</url>
-          <line>7</line>
+          <line>9</line>
           <properties class="JpaMain" method="main">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

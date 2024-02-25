@@ -3,6 +3,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
+
 public class JpaMain {
 
     public static void main(String[] args) {
@@ -13,20 +15,12 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Member member = new Member();
-//            member.setId(3L);
-//            member.setName("daeun");
-//
-//            em.persist(member);
 
-            Member findMember = em.find(Member.class, 1L);
-            System.out.println("findMember.id = " + findMember.getId());
-            System.out.println("findMember.name = " + findMember.getName());
-
-//            em.remove(findMember);
-
-            findMember.setName("haha");
-
+            List<Member> result = em.createQuery("select m from Member m", Member.class)
+                    .setFirstResult(1)
+                    .setMaxResults(10)
+                    .getResultList();
+            result.forEach(m -> System.out.println("member : " + m.getName()));
 
             tx.commit();
         } catch(Exception e) {
