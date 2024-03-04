@@ -11,12 +11,12 @@ public class MemberJpaRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public Member save (Member member) {
+    public Member save(Member member) {
         em.persist(member);
         return member;
     }
 
-    public Member find (Long id) {
+    public Member find(Long id) {
         return em.find(Member.class, id);
     }
 }
