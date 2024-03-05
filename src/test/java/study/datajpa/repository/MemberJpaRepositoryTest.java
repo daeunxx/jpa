@@ -1,15 +1,14 @@
 package study.datajpa.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
@@ -58,7 +57,28 @@ class MemberJpaRepositoryTest {
         memberJpaRepository.delete(member1);
         memberJpaRepository.delete(member2);
 
-        long delteCount = memberJpaRepository.count();
-        assertEquals(delteCount, 0);
+        long deleteCount = memberJpaRepository.count();
+        assertEquals(deleteCount, 0);
+    }
+
+    @Test
+    public void findByUsernameAndAgeGreaterThan() {
+        Member member1 = new Member("tester1", 10);
+        Member member2 = new Member("tester1", 20);
+        Member savedMember1 = memberJpaRepository.save(member1);
+        Member savedMember2 = memberJpaRepository.save(member2);
+
+        // 단건 조회 검증
+        Member findMember1 = memberJpaRepository.findById(savedMember1.getId()).get();
+        Member findMember2 = memberJpaRepository.findById(savedMember2.getId()).get();
+
+        System.out.println("findMember1 = " + findMember1);
+        System.out.println("findMember2 = " + findMember2);
+
+        List<Member> result = memberJpaRepository.findByUsernameAndAgeGreaterThan("tester1", 15);
+
+        assertEquals(result.get(0).getUsername(), findMember2.getUsername());
+        assertEquals(result.get(0).getAge(), findMember2.getAge());
+        assertEquals(result.size(), 1);
     }
 }

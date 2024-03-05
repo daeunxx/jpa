@@ -25,7 +25,7 @@ public class MemberJpaRepository {
 
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
-                .getResultList();
+            .getResultList();
     }
 
     public Optional<Member> findById(Long id) {
@@ -33,9 +33,16 @@ public class MemberJpaRepository {
         return Optional.ofNullable(member);
     }
 
+    public List<Member> findByUsernameAndAgeGreaterThan(String username, int age) {
+        return em.createQuery("select m from Member m where m.username = :username and m.age > :age")
+            .setParameter("username", username)
+            .setParameter("age", age)
+            .getResultList();
+    }
+
     public long count() {
         return em.createQuery("select count(m) from Member m", Long.class)
-                .getSingleResult();
+            .getSingleResult();
     }
 
     public void delete(Member member) {
