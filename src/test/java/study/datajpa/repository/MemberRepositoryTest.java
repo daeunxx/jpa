@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
+import study.datajpa.entity.Team;
 
 @SpringBootTest
 @Transactional
@@ -18,6 +20,9 @@ class MemberRepositoryTest {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    TeamRepository teamRepository;
 
     @Test
     public void testMember() {
@@ -100,8 +105,41 @@ class MemberRepositoryTest {
         memberRepository.save(member2);
 
         List<Member> members = memberRepository.findByUsername(member1.getUsername());
-        Member findMember = members.get(0);
+        assertEquals(member1, members.get(0));
+    }
 
-        assertEquals(member1, findMember);
+    @Test
+    public void testQuery() {
+        Member member1 = new Member("tester1", 10);
+        Member member2 = new Member("tester1", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> members = memberRepository.findUser(member1.getUsername(), member1.getAge());
+        assertEquals(member1, members.get(0));
+    }
+
+    @Test
+    public void testUserNameList() {
+        Member member1 = new Member("tester1", 10);
+        Member member2 = new Member("tester1", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<String> usernames = memberRepository.findUsernameList();
+        assertEquals(member1.getUsername(), usernames.get(0));
+    }
+
+    @Test
+    public void findMemberDto() {
+        Team team = new Team("teamA");
+        teamRepository.save(team);
+
+        Member member1 = new Member("member1", 10);
+        member1.setTeam(team);
+        memberRepository.save(member1);
+
+        List<MemberDto> members = memberRepository.findMemberDto();
+        members.forEach(System.out::println);
     }
 }
