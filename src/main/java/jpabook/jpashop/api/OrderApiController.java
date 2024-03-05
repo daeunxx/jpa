@@ -118,7 +118,6 @@ public class OrderApiController {
      * V6. JPA에서 DTO 바로 조회
      * - 1 query
      * - 페이징 불가
-     * @return
      */
     @GetMapping("/api/v6/orders")
     public List<OrderQueryDto> orderV6() {
