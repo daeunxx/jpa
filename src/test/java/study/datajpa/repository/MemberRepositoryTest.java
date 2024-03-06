@@ -2,6 +2,8 @@ package study.datajpa.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +32,9 @@ class MemberRepositoryTest {
 
   @Autowired
   TeamRepository teamRepository;
+
+  @PersistenceContext
+  EntityManager em;
 
   @Test
   public void testMember() {
@@ -271,6 +276,28 @@ class MemberRepositoryTest {
 
     Page<Member> members = memberRepository.findMembersByAge(age, pageRequest);
     Page<MemberDto> toMap = members.map(m -> new MemberDto(m.getId(), m.getUsername(), null));
+  }
+
+  @Test
+  public void bulkUpdate() {
+    // given
+    memberRepository.save(new Member("member1", 10));
+    memberRepository.save(new Member("member2", 12));
+    memberRepository.save(new Member("member3", 14));
+    memberRepository.save(new Member("member4", 20));
+    memberRepository.save(new Member("member5", 30));
+
+    // when
+    int resultCount = memberRepository.bulkAgePlus(20);
+//    em.clear();
+
+    // 조회해보면 bulk 연산이 되지 않은 상태
+    List<Member> result = memberRepository.findByUsername("member5");
+    Member member = result.get(0);
+    System.out.println("member = " + member);
+
+    // then
+    assertEquals(resultCount, 2);
   }
 
 }
