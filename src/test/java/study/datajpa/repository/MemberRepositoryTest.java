@@ -2,7 +2,9 @@ package study.datajpa.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +92,7 @@ class MemberRepositoryTest {
         assertEquals(result.get(0).getAge(), findMember2.getAge());
         assertEquals(result.size(), 1);
     }
-    
+
     @Test
     public void findHelloBy() {
         List<Member> members = memberRepository.findTop3HelloBy();
@@ -100,7 +102,7 @@ class MemberRepositoryTest {
     @Test
     public void testNamedQuery() {
         Member member1 = new Member("tester1", 10);
-        Member member2 = new Member("tester1", 20);
+        Member member2 = new Member("tester2", 20);
         memberRepository.save(member1);
         memberRepository.save(member2);
 
@@ -141,5 +143,38 @@ class MemberRepositoryTest {
 
         List<MemberDto> members = memberRepository.findMemberDto();
         members.forEach(System.out::println);
+    }
+
+    @Test
+    public void findByNames() {
+        Member member1 = new Member("tester1", 10);
+        Member member2 = new Member("tester2", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> members = memberRepository.findByNames(
+            Arrays.asList(member1.getUsername(), member2.getUsername()));
+
+        members.forEach(System.out::println);
+    }
+
+    @Test
+    public void returnType() {
+        Member member1 = new Member("member1", 10);
+        Member member2 = new Member("member1", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        // 컬렉션에 없는 값이 들어오면 빈 리스트가 반환됨(컬렉션은 null이 아님)
+        List<Member> findMemberList = memberRepository.findListByUsername("sadfsa");
+        System.out.println(findMemberList);
+
+        // 객체는 없는 값이 들어오면 null
+        Member findMember = memberRepository.findMemberByUsername("sadfsa");
+        System.out.println(findMember);
+
+        // Optional은 없는 값이 들어오면 Optional.empty
+        Optional<Member> findOptionalMember = memberRepository.findOptionalByUsername("member1");
+        System.out.println(findOptionalMember);
     }
 }
