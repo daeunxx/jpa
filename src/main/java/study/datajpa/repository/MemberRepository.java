@@ -2,6 +2,9 @@ package study.datajpa.repository;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,30 +13,39 @@ import study.datajpa.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
+  List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
 
-    List<Member> findTop3HelloBy();
+  List<Member> findTop3HelloBy();
 
-//    @Query(name = "Member.findByUsername")
+  //    @Query(name = "Member.findByUsername")
 //    List<Member> findByUsername(@Param("username") String username);
-    List<Member> findByUsername(String username);
+  List<Member> findByUsername(String username);
 
-    @Query("select m from Member m where m.username = :username and m.age = :age")
-    List<Member> findUser(@Param("username") String username, @Param("age") int age);
+  @Query("select m from Member m where m.username = :username and m.age = :age")
+  List<Member> findUser(@Param("username") String username, @Param("age") int age);
 
-    @Query("select m.username from Member m")
-    List<String> findUsernameList();
+  @Query("select m.username from Member m")
+  List<String> findUsernameList();
 
-    @Query("select new study.datajpa.dto.MemberDto(m.id, m.username, t.name) from Member m join m.team t")
-    List<MemberDto> findMemberDto();
+  @Query("select new study.datajpa.dto.MemberDto(m.id, m.username, t.name) from Member m join m.team t")
+  List<MemberDto> findMemberDto();
 
-    @Query("select m from Member m where m.username in :names")
-    List<Member> findByNames(@Param("names") List<String> names);
+  @Query("select m from Member m where m.username in :names")
+  List<Member> findByNames(@Param("names") List<String> names);
 
-    List<Member> findListByUsername(String username); // 컬렉션
+  List<Member> findListByUsername(String username); // 컬렉션
 
-    Member findMemberByUsername(String username);   // 단건
+  Member findMemberByUsername(String username);   // 단건
 
-    Optional<Member> findOptionalByUsername(String usrename);
+  Optional<Member> findOptionalByUsername(String usrename);
 
+  Page<Member> findPageByAge(int age, Pageable pageable);
+
+  Slice<Member> findSliceByAge(int age, Pageable pageable);
+
+  List<Member> findByAge(int age, Pageable pageable);
+
+  @Query(value = "select m from Member m left outer join m.team t",
+      countQuery = "select count(m) from Member m")
+  Page<Member> findMembersByAge(int age, Pageable pageable);
 }
