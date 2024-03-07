@@ -386,4 +386,18 @@ class MemberRepositoryTest {
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
     });
   }
+
+  @Test
+  public void queryHink() {
+    // given
+    Member member1 = memberRepository.save(new Member("member1", 10));
+    em.flush();
+    em.clear();
+
+    // when
+    Member findMember = memberRepository.findReadOnlyByUsername(member1.getUsername());
+    findMember.setUsername("member2");
+
+    em.flush();
+  }
 }
