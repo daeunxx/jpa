@@ -388,7 +388,7 @@ class MemberRepositoryTest {
   }
 
   @Test
-  public void queryHink() {
+  public void queryHint() {
     // given
     Member member1 = memberRepository.save(new Member("member1", 10));
     em.flush();
@@ -398,6 +398,19 @@ class MemberRepositoryTest {
     Member findMember = memberRepository.findReadOnlyByUsername(member1.getUsername());
     findMember.setUsername("member2");
 
+    em.flush(); // update query 실행x
+    em.clear(); // 객체만 변경 but DB는 변경되지 않음
+    System.out.println("findMember = " + findMember);
+  }
+
+  @Test
+  public void lock() {
+    // given
+    Member member1 = memberRepository.save(new Member("member1", 10));
     em.flush();
+    em.clear();
+
+    // when
+    memberRepository.findLockByUsername(member1.getUsername());
   }
 }
