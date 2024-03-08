@@ -51,11 +51,12 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
 
   List<Member> findByAge(int age, Pageable pageable);
 
-  @Query(value = "select m from Member m left outer join m.team t",
+  @Query(value = "select m from Member m left outer join m.team t where m.age = :age",
       countQuery = "select count(m) from Member m")
-  Page<Member> findMembersByAge(int age, Pageable pageable);
+  Page<Member> findMembersByAge(@Param("age") int age, Pageable pageable);
 
-  @Modifying(clearAutomatically = true)
+//  @Modifying(clearAutomatically = true)
+  @Modifying
   @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
   int bulkAgePlus(@Param("age") int age);
 
@@ -63,16 +64,16 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
   List<Member> findMemberFetchJoin();
 
   @Override
-  @EntityGraph(attributePaths = {"team"})
+//  @EntityGraph(attributePaths = {"team"})
   List<Member> findAll();
 
   @EntityGraph(attributePaths = {"team"})
   @Query("select m from Member m")
   List<Member> findMemberEntityGraph();
 
-//  @EntityGraph(attributePaths = {"team"})
+  //  @EntityGraph(attributePaths = {"team"})
   @EntityGraph("Member.all")
-  List<Member> findEntityGraphByUsername(@Param("username") String username);
+  List<Member> findEntityGraphByUsername(String username);
 
   @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
   Member findReadOnlyByUsername(String username);

@@ -106,7 +106,6 @@ class MemberRepositoryTest {
   @Test
   public void findHelloBy() {
     List<Member> members = memberRepository.findTop3HelloBy();
-
   }
 
   @Test
@@ -199,7 +198,7 @@ class MemberRepositoryTest {
     memberRepository.save(new Member("member5", 10));
 
     int age = 10;
-    PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Direction.DESC, "username"));
+    PageRequest pageRequest = PageRequest.of(1, 3, Sort.by(Direction.DESC, "username"));
 
     // when
     Page<Member> page = memberRepository.findPageByAge(age, pageRequest);
@@ -211,12 +210,12 @@ class MemberRepositoryTest {
     content.forEach(System.out::println);
     System.out.println("totalElements = " + totalElements);
 
-    assertEquals(content.size(), 3);
+    assertEquals(content.size(), 2);
     assertEquals(page.getTotalElements(), 5);
-    assertEquals(page.getNumber(), 0);
+    assertEquals(page.getNumber(), 1);
     assertEquals(page.getTotalPages(), 2);
-    assertEquals(page.isFirst(), true);
-    assertEquals(page.hasNext(), true);
+    assertEquals(page.isFirst(), false);
+    assertEquals(page.hasNext(), false);
   }
 
   @Test
@@ -238,6 +237,8 @@ class MemberRepositoryTest {
     List<Member> content = page.getContent();
 
     content.forEach(System.out::println);
+    System.out.println("page.getNumberOfElements() = " + page.getNumberOfElements());
+    System.out.println("page.nextPageable() = " + page.nextPageable());
 
     assertEquals(content.size(), 3);
     assertEquals(page.getNumber(), 0);
@@ -267,15 +268,17 @@ class MemberRepositoryTest {
   public void pagingDividedCount() {
     memberRepository.save(new Member("member1", 10));
     memberRepository.save(new Member("member2", 10));
-    memberRepository.save(new Member("member3", 10));
-    memberRepository.save(new Member("member4", 10));
-    memberRepository.save(new Member("member5", 10));
+    memberRepository.save(new Member("member3", 15));
+    memberRepository.save(new Member("member4", 15));
+    memberRepository.save(new Member("member5", 15));
 
     int age = 10;
     PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Direction.DESC, "username"));
 
     Page<Member> members = memberRepository.findMembersByAge(age, pageRequest);
     Page<MemberDto> toMap = members.map(m -> new MemberDto(m.getId(), m.getUsername(), null));
+
+    toMap.forEach(System.out::println);
   }
 
   @Test
@@ -319,7 +322,8 @@ class MemberRepositoryTest {
     em.flush();
     em.clear();
 
-    // when 1 + N
+    // when
+    // select Member
     List<Member> members = memberRepository.findAll();
 
     members.forEach(m ->{
@@ -370,7 +374,7 @@ class MemberRepositoryTest {
     teamRepository.save(teamB);
 
     Member member1 = new Member("member1", 10, teamA);
-    Member member2 = new Member("member1", 20, teamB);
+    Member member2 = new Member("member2", 20, teamB);
     memberRepository.save(member1);
     memberRepository.save(member2);
 
@@ -400,6 +404,9 @@ class MemberRepositoryTest {
 
     em.flush(); // update query 실행x
     em.clear(); // 객체만 변경 but DB는 변경되지 않음
+
+    Optional<Member> findMemberById = memberRepository.findById(member1.getId());
+    System.out.println("findMemberById = " + findMemberById);
     System.out.println("findMember = " + findMember);
   }
 
