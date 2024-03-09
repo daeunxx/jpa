@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="프로젝트 설정 및 영속성 관리">
-      <change afterPath="$PROJECT_DIR$/src/main/java/RolyType.java" afterDir="false" />
+    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="필드와 컬럼 매핑">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JpaMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -78,7 +79,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -132,7 +133,8 @@
       <workItem from="1708853612211" duration="3263000" />
       <workItem from="1709910311397" duration="6286000" />
       <workItem from="1709953428640" duration="529000" />
-      <workItem from="1709953963886" duration="8327000" />
+      <workItem from="1709953963886" duration="14751000" />
+      <workItem from="1709975703493" duration="3148000" />
     </task>
     <task id="LOCAL-00001" summary="프로젝트 설정 오류 수정">
       <option name="closed" value="true" />
@@ -174,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709959096368</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="필드와 컬럼 매핑">
+      <option name="closed" value="true" />
+      <created>1709969541380</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709969541380</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,20 +219,16 @@
     <MESSAGE value="회원 수정" />
     <MESSAGE value="회원 전체 조회 및 페이징" />
     <MESSAGE value="프로젝트 설정 및 영속성 관리" />
-    <option name="LAST_COMMIT_MESSAGE" value="프로젝트 설정 및 영속성 관리" />
+    <MESSAGE value="필드와 컬럼 매핑" />
+    <option name="LAST_COMMIT_MESSAGE" value="필드와 컬럼 매핑" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/JpaMain.java</url>
-          <line>9</line>
-          <properties class="JpaMain" method="main">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.hibernate.MappingException" package="org.hibernate" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

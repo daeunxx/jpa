@@ -1,28 +1,32 @@
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
-import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
+@SequenceGenerator(
+    name = "MEMBER_SEQ_GENERATOR",
+    sequenceName = "MEMBER_SEQ"
+)
 public class Member {
 
   @Id
+  @GeneratedValue(
+      strategy = GenerationType.SEQUENCE,
+      generator = "MEMBER_SEQ_GENERATOR"
+  )
   private Long id;
 
-  @Column(name = "name", nullable = false)
   private String username;
 
   private int age;
@@ -35,12 +39,7 @@ public class Member {
   private LocalDateTime lastModifiedDate;
 
   @Lob
-  private String decriptioin;
+  private String description;
 
   private int temp;
-
-  public Member(Long id, String username) {
-    this.id = id;
-    this.username = username;
-  }
 }
