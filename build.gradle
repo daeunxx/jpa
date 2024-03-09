@@ -13,8 +13,12 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1'
+
     implementation 'org.hibernate:hibernate-core:6.1.7.Final'
     implementation 'com.h2database:h2:2.1.214'
+
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
 }
 
 tasks.test {
