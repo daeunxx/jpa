@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="필드와 컬럼 매핑">
+    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="PK GenerationType.SEQUENCE 방식 매핑">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Locker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Team.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JpaMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +45,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -60,31 +63,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.JpaMain.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Build ex1-hello-jpa.executor": "Run",
-    "Gradle.ex1-hello-jpa [:JpaMain.main()].executor": "Run",
-    "JUnit.All in ex1-hello-jpa.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.JpaMain.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build ex1-hello-jpa.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ex1-hello-jpa [:JpaMain.main()].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in ex1-hello-jpa.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
   </component>
@@ -134,7 +140,10 @@
       <workItem from="1709910311397" duration="6286000" />
       <workItem from="1709953428640" duration="529000" />
       <workItem from="1709953963886" duration="14751000" />
-      <workItem from="1709975703493" duration="3148000" />
+      <workItem from="1709975703493" duration="4588000" />
+      <workItem from="1709981365074" duration="11000" />
+      <workItem from="1709983914468" duration="84000" />
+      <workItem from="1710164910046" duration="953000" />
     </task>
     <task id="LOCAL-00001" summary="프로젝트 설정 오류 수정">
       <option name="closed" value="true" />
@@ -184,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709969541380</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="PK GenerationType.SEQUENCE 방식 매핑">
+      <option name="closed" value="true" />
+      <created>1709978987882</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1709978987882</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,7 +237,8 @@
     <MESSAGE value="회원 전체 조회 및 페이징" />
     <MESSAGE value="프로젝트 설정 및 영속성 관리" />
     <MESSAGE value="필드와 컬럼 매핑" />
-    <option name="LAST_COMMIT_MESSAGE" value="필드와 컬럼 매핑" />
+    <MESSAGE value="PK GenerationType.SEQUENCE 방식 매핑" />
+    <option name="LAST_COMMIT_MESSAGE" value="PK GenerationType.SEQUENCE 방식 매핑" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

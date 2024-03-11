@@ -5,12 +5,14 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <persistence-unit name="hello">
     <class>Member</class>
+    <class>Team</class>
+    <class>Locker</class>
     <properties>
       <!-- 필수 속성 -->
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
       <property name="jakarta.persistence.jdbc.user" value="sa"/>
       <property name="jakarta.persistence.jdbc.password" value=""/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/settings/database/jpashop"/>
       <property name="hibernate.function.contributor" value="dialect.MyH2Dialect"/>
 
       <property name="hibernate.transaction.jta.platform"

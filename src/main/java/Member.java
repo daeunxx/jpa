@@ -4,7 +4,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -31,6 +34,14 @@ public class Member {
 
   private int age;
 
+  @ManyToOne
+  @JoinColumn(name = "team_id")
+  private Team team;
+
+  @OneToOne
+  @JoinColumn(name = "locker_id")
+  private Locker locker;
+
   @Enumerated(EnumType.STRING)
   private RolyType rolyType;
 
@@ -42,4 +53,10 @@ public class Member {
   private String description;
 
   private int temp;
+
+  public void changeTeam(Team team) {
+    this.team = team;
+    team.getMembers().add(this);
+  }
+
 }
