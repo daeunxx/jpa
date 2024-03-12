@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="일대일 연관관계 매핑">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Member.java" afterDir="false" />
+    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="다대다 연관관계 매핑">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Album.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JpaMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +144,8 @@
       <workItem from="1709975703493" duration="4588000" />
       <workItem from="1709981365074" duration="11000" />
       <workItem from="1709983914468" duration="84000" />
-      <workItem from="1710164910046" duration="2081000" />
+      <workItem from="1710164910046" duration="3395000" />
+      <workItem from="1710245232846" duration="2338000" />
     </task>
     <task id="LOCAL-00001" summary="프로젝트 설정 오류 수정">
       <option name="closed" value="true" />
@@ -206,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710167022264</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="다대다 연관관계 매핑">
+      <option name="closed" value="true" />
+      <created>1710243191947</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1710243191947</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,7 +257,8 @@
     <MESSAGE value="필드와 컬럼 매핑" />
     <MESSAGE value="PK GenerationType.SEQUENCE 방식 매핑" />
     <MESSAGE value="일대일 연관관계 매핑" />
-    <option name="LAST_COMMIT_MESSAGE" value="일대일 연관관계 매핑" />
+    <MESSAGE value="다대다 연관관계 매핑" />
+    <option name="LAST_COMMIT_MESSAGE" value="다대다 연관관계 매핑" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

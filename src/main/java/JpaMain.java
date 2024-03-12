@@ -13,7 +13,20 @@ public class JpaMain {
     tx.begin();
 
     try {
-      
+      Movie movie = new Movie();
+      movie.setDirector("a");
+      movie.setActor("bbb");
+      movie.setName("dune");
+      movie.setPrice(1000);
+
+      em.persist(movie);
+
+      em.flush();
+      em.clear();
+
+      Item finditem = em.find(Item.class, movie.getId());
+      System.out.println("finditem = " + finditem);
+
       tx.commit();
     } catch (Exception e) {
       e.printStackTrace();
