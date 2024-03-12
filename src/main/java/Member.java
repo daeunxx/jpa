@@ -7,9 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,6 +44,9 @@ public class Member {
   @OneToOne
   @JoinColumn(name = "locker_id")
   private Locker locker;
+
+  @OneToMany(mappedBy = "member")
+  private List<MemberProduct> products = new ArrayList<>();
 
   @Enumerated(EnumType.STRING)
   private RolyType rolyType;

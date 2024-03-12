@@ -7,6 +7,8 @@
     <class>Member</class>
     <class>Team</class>
     <class>Locker</class>
+    <class>Product</class>
+    <class>MemberProduct</class>
     <properties>
       <!-- 필수 속성 -->
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
