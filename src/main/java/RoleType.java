@@ -1,3 +1,3 @@
-public enum RolyType {
+public enum RoleType {
   GUEST, ADMIN, USER
 }
