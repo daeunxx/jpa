@@ -2,6 +2,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import java.time.LocalDateTime;
 
 public class JpaMain {
 
@@ -13,19 +14,12 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Movie movie = new Movie();
-      movie.setDirector("a");
-      movie.setActor("bbb");
-      movie.setName("dune");
-      movie.setPrice(1000);
+      Member member = new Member();
+      member.setUsername("member1");
+      member.setCreatedBy("kim");
+      member.setCreatedDate(LocalDateTime.now());
 
-      em.persist(movie);
-
-      em.flush();
-      em.clear();
-
-      Item finditem = em.find(Item.class, movie.getId());
-      System.out.println("finditem = " + finditem);
+      em.persist(member);
 
       tx.commit();
     } catch (Exception e) {

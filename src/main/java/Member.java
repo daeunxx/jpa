@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -24,7 +23,7 @@ import lombok.Setter;
     name = "MEMBER_SEQ_GENERATOR",
     sequenceName = "MEMBER_SEQ"
 )
-public class Member {
+public class Member extends BaseEntity {
 
   @Id
   @GeneratedValue(
@@ -50,10 +49,6 @@ public class Member {
 
   @Enumerated(EnumType.STRING)
   private RolyType rolyType;
-
-  private LocalDateTime createdDate;
-
-  private LocalDateTime lastModifiedDate;
 
   @Lob
   private String description;
