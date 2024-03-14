@@ -13,6 +13,8 @@
     <class>Album</class>
     <class>Book</class>
     <class>Movie</class>
+    <class>Parent</class>
+    <class>Child</class>
     <properties>
       <!-- 필수 속성 -->
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
