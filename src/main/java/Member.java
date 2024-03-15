@@ -49,7 +49,7 @@ public class Member extends BaseEntity {
   private List<MemberProduct> products = new ArrayList<>();
 
   @Enumerated(EnumType.STRING)
-  private RoleType rolyType;
+  private RoleType type;
 
   @Lob
   private String description;
