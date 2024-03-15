@@ -19,7 +19,7 @@ public class JpaMain {
       em.persist(team);
 
       Member member = new Member();
-      member.setUsername("daeun");
+      member.setUsername(null);
       member.setAge(10);
       member.setTeam(team);
       member.setType(RoleType.ADMIN);
@@ -28,10 +28,9 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-      List<Object[]> resultList = em.createQuery("select m.username, 'HELLO', true from Member m "
-              + "where m.type = :userType")
-          .setParameter("userType", RoleType.ADMIN)
-          .getResultList();
+      String query = "select coalesce(m.username, '이름 없는 회원') from Member m";
+      List<String> result = em.createQuery(query, String.class).getResultList();
+      result.forEach(System.out::println);
 
       tx.commit();
     } catch (Exception e) {

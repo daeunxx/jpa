@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="cascade | orphanRemoval">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1340be23-8266-4071-943a-b0a2050ff557" name="Changes" comment="JPQL 타입 표현">
       <change beforePath="$PROJECT_DIR$/src/main/java/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JpaMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Member.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +145,7 @@
       <workItem from="1710164910046" duration="3395000" />
       <workItem from="1710245232846" duration="18040000" />
       <workItem from="1710499520957" duration="20000" />
-      <workItem from="1710504895885" duration="319000" />
+      <workItem from="1710504895885" duration="1658000" />
     </task>
     <task id="LOCAL-00001" summary="프로젝트 설정 오류 수정">
       <option name="closed" value="true" />
@@ -262,7 +259,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710418181807</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="JPQL 타입 표현">
+      <option name="closed" value="true" />
+      <created>1710505518783</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1710505518783</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +311,8 @@
     <MESSAGE value="프록시" />
     <MESSAGE value="지연로딩" />
     <MESSAGE value="cascade | orphanRemoval" />
-    <option name="LAST_COMMIT_MESSAGE" value="cascade | orphanRemoval" />
+    <MESSAGE value="JPQL 타입 표현" />
+    <option name="LAST_COMMIT_MESSAGE" value="JPQL 타입 표현" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
