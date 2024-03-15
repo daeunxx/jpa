@@ -1,6 +1,7 @@
 package jpql;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -18,9 +19,14 @@ public class Member {
   private String username;
   private int age;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "team_id")
   private Team team;
+
+  public void changeTeam(Team team) {
+    this.team = team;
+    team.getMembers().add(this);
+  }
 
   @Override
   public String toString() {

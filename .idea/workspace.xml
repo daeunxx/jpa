@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0f9eea1-530d-4e10-8dbe-a16a29780552" name="Changes" comment="프로젝션(SELECT)">
+    <list default="true" id="a0f9eea1-530d-4e10-8dbe-a16a29780552" name="Changes" comment="페이징">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JpaMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpql/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpql/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/Team.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1710470806533</updated>
       <workItem from="1710470807873" duration="3296000" />
-      <workItem from="1710497268988" duration="4848000" />
+      <workItem from="1710497268988" duration="6348000" />
     </task>
     <task id="LOCAL-00001" summary="jpql 실습 프로젝트 생성">
       <option name="closed" value="true" />
@@ -113,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710501278574</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="페이징">
+      <option name="closed" value="true" />
+      <created>1710502630035</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710502630035</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +143,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="jpql 실습 프로젝트 생성" />
     <MESSAGE value="프로젝션(SELECT)" />
-    <option name="LAST_COMMIT_MESSAGE" value="프로젝션(SELECT)" />
+    <MESSAGE value="페이징" />
+    <option name="LAST_COMMIT_MESSAGE" value="페이징" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import java.util.List;
 import jpql.Member;
+import jpql.Team;
 
 public class JpaMain {
 
@@ -16,27 +17,25 @@ public class JpaMain {
     tx.begin();
 
     try {
-      for (int i = 0; i < 100; i++) {
-        Member member = new Member();
-        member.setUsername("member" + i);
-        member.setAge(i);
-        em.persist(member);
-      }
+
+      Team team = new Team();
+      team.setName("team1");
+      em.persist(team);
+
+      Member member = new Member();
+      member.setUsername("daeun");
+      member.setAge(10);
+      member.setTeam(team);
+      em.persist(member);
 
       em.flush();
       em.clear();
 
-      List<Member> members = em.createQuery("select m from Member m order by m.age desc",
-              Member.class)
-          .setFirstResult(1)
-          .setMaxResults(10)
-          .getResultList();
+      List<Member> result = em.createQuery(
+          "select m from Member m left join Team t on m.username = t.name",
+          Member.class).getResultList();
 
-      System.out.println("members.size() = " + members.size());
-
-      for (Member member : members) {
-        System.out.println("member = " + member);
-      }
+      System.out.println("result = " + result.size());
 
       tx.commit();
 
