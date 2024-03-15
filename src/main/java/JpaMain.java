@@ -19,7 +19,7 @@ public class JpaMain {
       em.persist(team);
 
       Member member = new Member();
-      member.setUsername(null);
+      member.setUsername("daeun");
       member.setAge(10);
       member.setTeam(team);
       member.setType(RoleType.ADMIN);
@@ -28,7 +28,7 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-      String query = "select coalesce(m.username, '이름 없는 회원') from Member m";
+      String query = "select nullif(m.username, 'daeun') from Member m";
       List<String> result = em.createQuery(query, String.class).getResultList();
       result.forEach(System.out::println);
 
