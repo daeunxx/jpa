@@ -6,6 +6,9 @@
   <persistence-unit name="hello">
     <class>jpql.Member</class>
     <class>jpql.Team</class>
+    <class>jpql.Order</class>
+    <class>jpql.Product</class>
+    <class>jpql.Team</class>
     <properties>
       <!-- 필수 속성 -->
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
