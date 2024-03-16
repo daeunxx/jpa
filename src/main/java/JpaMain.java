@@ -2,7 +2,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import java.util.List;
 import jpql.Member;
 import jpql.Team;
 
@@ -44,14 +43,16 @@ public class JpaMain {
       meber3.setTeam(team2);
       em.persist(meber3);
 
-      em.flush();
-      em.clear();
+//      em.flush();
+//      em.clear();
 
-      List<Member> resultList = em.createNamedQuery("Member.findByUsername")
-          .setParameter("username", member1.getUsername())
-          .getResultList();
+      int resultCount = em.createQuery("update Member m set m.age = 20")
+          .executeUpdate();
 
-      System.out.println(resultList);
+      Member findMember = em.find(Member.class, member1.getId());
+      System.out.println("resultCount = " + resultCount);
+      System.out.println("findMember.getAge() = " + findMember.getAge());
+
 
       tx.commit();
 
