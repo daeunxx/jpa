@@ -33,7 +33,7 @@ public class JpaMain {
       em.persist(member1);
 
       Member member2 = new Member();
-      member2.setUsername("daeun2");
+      member2.setUsername("daeun");
       member2.setAge(10);
       member2.setTeam(team2);
       em.persist(member2);
@@ -47,14 +47,11 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-      String query = "select t from Team t";
-      List<Team> result = em.createQuery(query, Team.class).getResultList();
+      List<Member> resultList = em.createNamedQuery("Member.findByUsername")
+          .setParameter("username", member1.getUsername())
+          .getResultList();
 
-      System.out.println("result.size() = " + result.size());
-      result.forEach(t -> {
-        List<Member> members = t.getMembers();
-        members.forEach(m -> System.out.println(m.getId() + " " + m.getUsername()));
-      });
+      System.out.println(resultList);
 
       tx.commit();
 
