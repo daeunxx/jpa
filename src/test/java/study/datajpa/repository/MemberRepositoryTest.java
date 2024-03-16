@@ -425,4 +425,86 @@ class MemberRepositoryTest {
   public void callCustom() {
     List<Member> memberCustom = memberRepository.findMemberCustom();
   }
+
+  @Test
+  public void teamProxy() {
+    // given
+    Team team = new Team("team1");
+    teamRepository.save(team);
+
+    Member member = new Member("member1", 10, team);
+    memberRepository.save(member);
+
+    em.flush();
+    em.clear();
+
+    // when
+    Member findMember = memberRepository.findMemberByUsername(member.getUsername());
+    System.out.println("findMember = " + findMember);
+
+    System.out.println("findMember.getTeam().getClass() = " + findMember.getTeam().getClass());
+
+    // 프록시 객체가 먼저 조회된 상태
+    Team findTeam = findMember.getTeam();
+    Team saveTeam = findMember.getTeam();
+
+    // 기본키는 이미 갖고 있기 때문에 실제 엔티티를 조회하지 않음
+    System.out.println("findTeam.getId() = " + findTeam.getId());
+
+    // 출력을 찍으면 team 조회 쿼리가 호출되면서 실제 team 엔티티를 가져옴
+    System.out.println("findTeam = " + findTeam);
+
+    // 이미 프록시 객체가 이전에 조회되었기 프록시 객체가 반환됨
+    System.out.println("saveTeam.getClass() = " + saveTeam.getClass());
+    System.out.println("findTeam == saveTeam " + findTeam.equals(saveTeam));
+  }
+
+  @Test
+  public void memberProxy() {
+    // given
+    Member member = new Member("member1", 10);
+    memberRepository.save(member);
+
+    em.flush();
+    em.clear();
+
+    // when
+    // 바로 위의 테스트와 반대의 상황
+    // 쿼리에서 불러온 엔티티와 프록시 객체 비교
+    Member findMember = em.find(Member.class, member.getId());
+    System.out.println("findMember.getClass() = " + findMember.getClass());
+
+    // 프록시 객체이나 실제 엔티티 클래스 반환
+    Member refMember = em.getReference(Member.class, member.getId());
+    System.out.println("refMember.getClass() = " + refMember.getClass());
+
+  }
+
+  @Test
+  public void detachProxy() {
+    // given
+    Member member = new Member("member1", 10);
+    memberRepository.save(member);
+
+    em.flush();
+    em.clear();
+
+    // when
+    // 프록시 객체 생성
+    Member refMember = em.getReference(Member.class, member.getId());
+    System.out.println("refMember.getClass() = " + refMember.getClass());
+
+    // 프록시 객체 준영속화 -> 오류 발생
+//    em.detach(refMember);
+
+    // 영속성 컨텍스트 clear -> 오류 발생
+//    em.clear();
+
+    // 영속성 컨텍스트 종료 -> 정상
+    em.close();
+
+    // 프록시 객체 초기화
+    String username = refMember.getUsername();
+    System.out.println("Proxy username = " + username);
+  }
 }
