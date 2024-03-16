@@ -7,6 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,12 +194,12 @@ class MemberRepositoryTest {
     // given
     memberRepository.save(new Member("member1", 10));
     memberRepository.save(new Member("member2", 10));
-    memberRepository.save(new Member("member3", 10));
-    memberRepository.save(new Member("member4", 10));
+    memberRepository.save(new Member("member3", 20));
+    memberRepository.save(new Member("member4", 20));
     memberRepository.save(new Member("member5", 10));
 
     int age = 10;
-    PageRequest pageRequest = PageRequest.of(1, 3, Sort.by(Direction.DESC, "username"));
+    PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Direction.DESC, "username"));
 
     // when
     Page<Member> page = memberRepository.findPageByAge(age, pageRequest);
@@ -209,12 +210,21 @@ class MemberRepositoryTest {
 
     content.forEach(System.out::println);
     System.out.println("totalElements = " + totalElements);
+    System.out.println("page.getTotalElements() = " + page.getTotalElements());
+    System.out.println("page.getNumber() = " + page.getNumber());
 
-    assertEquals(content.size(), 2);
-    assertEquals(page.getTotalElements(), 5);
-    assertEquals(page.getNumber(), 1);
-    assertEquals(page.getTotalPages(), 2);
-    assertEquals(page.isFirst(), false);
+    // 조회된 데이터 수
+    assertEquals(content.size(), 3);
+
+    // 전체 데이터 수
+    assertEquals(page.getTotalElements(), 3);
+
+    // 페이지 번호 : Page의 시작은 0부터
+    assertEquals(page.getNumber(), 0);
+
+    // 전체 페이지 수
+    assertEquals(page.getTotalPages(), 1);
+    assertEquals(page.isFirst(), true);
     assertEquals(page.hasNext(), false);
   }
 
@@ -228,7 +238,7 @@ class MemberRepositoryTest {
     memberRepository.save(new Member("member5", 10));
 
     int age = 10;
-    PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Direction.DESC, "username"));
+    PageRequest pageRequest = PageRequest.of(1, 3, Sort.by(Direction.DESC, "username"));
 
     // when
     Slice<Member> page = memberRepository.findSliceByAge(age, pageRequest);
@@ -237,13 +247,15 @@ class MemberRepositoryTest {
     List<Member> content = page.getContent();
 
     content.forEach(System.out::println);
+
+    // 현재 페이지에 나올 데이터 수
     System.out.println("page.getNumberOfElements() = " + page.getNumberOfElements());
     System.out.println("page.nextPageable() = " + page.nextPageable());
 
-    assertEquals(content.size(), 3);
-    assertEquals(page.getNumber(), 0);
-    assertEquals(page.isFirst(), true);
-    assertEquals(page.hasNext(), true);
+    assertEquals(content.size(), 2);
+    assertEquals(page.getNumber(), 1);
+    assertEquals(page.isFirst(), false);
+    assertEquals(page.hasNext(), false);
   }
 
   @Test
@@ -295,6 +307,7 @@ class MemberRepositoryTest {
 //    em.clear();
 
     // 조회해보면 bulk 연산이 되지 않은 상태
+    // @Modifying(clearAutomatically = true)를 사용하면 객체에 반영
     List<Member> result = memberRepository.findByUsername("member5");
     Member member = result.get(0);
     System.out.println("member = " + member);
@@ -315,7 +328,7 @@ class MemberRepositoryTest {
     teamRepository.save(teamB);
 
     Member member1 = new Member("member1", 10, teamA);
-    Member member2 = new Member("member2", 20, teamB);
+    Member member2 = new Member("member2", 20, teamA);
     memberRepository.save(member1);
     memberRepository.save(member2);
 
@@ -328,8 +341,11 @@ class MemberRepositoryTest {
 
     members.forEach(m ->{
       System.out.println("m.getUsername() = " + m.getUsername());
-      System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
+//      System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
+
+      // members에서 프록시로 가져왔기 때문에 바로 위에서 초기화되어도 프록시 클래스로 조회됨
+      System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
     });
   }
 
@@ -352,7 +368,7 @@ class MemberRepositoryTest {
     em.flush();
     em.clear();
 
-    // when 1 + N
+    // when
     List<Member> members = memberRepository.findMemberFetchJoin();
 
     members.forEach(m ->{
@@ -360,6 +376,10 @@ class MemberRepositoryTest {
       System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
     });
+    
+    // 지연로딩 여부 확인
+    boolean initialized = Hibernate.isInitialized(members.get(0).getTeam());
+    System.out.println("initialized = " + initialized);
   }
 
   @Test
@@ -381,7 +401,7 @@ class MemberRepositoryTest {
     em.flush();
     em.clear();
 
-    // when 1 + N
+    // when
     List<Member> members = memberRepository.findEntityGraphByUsername("member1");
 
     members.forEach(m ->{
@@ -423,7 +443,7 @@ class MemberRepositoryTest {
 
   @Test
   public void callCustom() {
-    List<Member> memberCustom = memberRepository.findMemberCustom();
+    List<Member> result = memberRepository.findMemberCustom();
   }
 
   @Test
