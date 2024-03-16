@@ -18,24 +18,43 @@ public class JpaMain {
 
     try {
 
-      Team team = new Team();
-      team.setName("team1");
-      em.persist(team);
+      Team team1 = new Team();
+      team1.setName("team1");
+      em.persist(team1);
 
-      Member member = new Member();
-      member.setUsername("daeun");
-      member.setAge(10);
-      member.setTeam(team);
-      em.persist(member);
+      Team team2 = new Team();
+      team2.setName("team2");
+      em.persist(team2);
+
+      Member member1 = new Member();
+      member1.setUsername("daeun");
+      member1.setAge(10);
+      member1.setTeam(team1);
+      em.persist(member1);
+
+      Member member2 = new Member();
+      member2.setUsername("daeun2");
+      member2.setAge(10);
+      member2.setTeam(team2);
+      em.persist(member2);
+
+      Member meber3 = new Member();
+      meber3.setUsername("daeun3");
+      meber3.setAge(10);
+      meber3.setTeam(team2);
+      em.persist(meber3);
 
       em.flush();
       em.clear();
 
-      List<Member> result = em.createQuery(
-          "select m from Member m left join Team t on m.username = t.name",
-          Member.class).getResultList();
+      String query = "select t from Team t";
+      List<Team> result = em.createQuery(query, Team.class).getResultList();
 
-      System.out.println("result = " + result.size());
+      System.out.println("result.size() = " + result.size());
+      result.forEach(t -> {
+        List<Member> members = t.getMembers();
+        members.forEach(m -> System.out.println(m.getId() + " " + m.getUsername()));
+      });
 
       tx.commit();
 
