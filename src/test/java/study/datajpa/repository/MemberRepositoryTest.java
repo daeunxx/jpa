@@ -288,7 +288,7 @@ class MemberRepositoryTest {
     PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Direction.DESC, "username"));
 
     Page<Member> members = memberRepository.findMembersByAge(age, pageRequest);
-    Page<MemberDto> toMap = members.map(m -> new MemberDto(m.getId(), m.getUsername(), null));
+    Page<MemberDto> toMap = members.map(m -> new MemberDto(m.getId(), m.getUsername(), 10));
 
     toMap.forEach(System.out::println);
   }
