@@ -559,4 +559,28 @@ class MemberRepositoryTest {
 
     Assertions.assertEquals(result.get(0).getUsername(), member1.getUsername());
   }
+
+  @Test
+  public void projections() throws IllegalArgumentException {
+    // given
+    Team teamA = new Team("teamA");
+    em.persist(teamA);
+
+    Member member1 = new Member("member1");
+    Member member2 = new Member("member2");
+    member1.setTeam(teamA);
+    em.persist(member1);
+    em.persist(member2);
+
+    em.flush();
+    em.clear();
+
+    // when
+    List<NestedClosedProjections> result = memberRepository.findProjectionsByUsername("member1", NestedClosedProjections.class);
+
+    result.forEach(r -> {
+      System.out.println("r.getUsername() = " + r.getUsername());
+      System.out.println("r.getTeam() = " + r.getTeam());
+    });
+  }
 }
