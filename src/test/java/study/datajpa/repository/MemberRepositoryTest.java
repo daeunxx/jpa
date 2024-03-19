@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -339,7 +341,7 @@ class MemberRepositoryTest {
     // select Member
     List<Member> members = memberRepository.findAll();
 
-    members.forEach(m ->{
+    members.forEach(m -> {
       System.out.println("m.getUsername() = " + m.getUsername());
 //      System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
@@ -371,12 +373,12 @@ class MemberRepositoryTest {
     // when
     List<Member> members = memberRepository.findMemberFetchJoin();
 
-    members.forEach(m ->{
+    members.forEach(m -> {
       System.out.println("m.getUsername() = " + m.getUsername());
       System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
     });
-    
+
     // 지연로딩 여부 확인
     boolean initialized = Hibernate.isInitialized(members.get(0).getTeam());
     System.out.println("initialized = " + initialized);
@@ -404,7 +406,7 @@ class MemberRepositoryTest {
     // when
     List<Member> members = memberRepository.findEntityGraphByUsername("member1");
 
-    members.forEach(m ->{
+    members.forEach(m -> {
       System.out.println("m.getUsername() = " + m.getUsername());
       System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
@@ -526,5 +528,35 @@ class MemberRepositoryTest {
     // 프록시 객체 초기화
     String username = refMember.getUsername();
     System.out.println("Proxy username = " + username);
+  }
+
+  @Test
+  public void queryByExample() {
+
+    // given
+    Team teamA = new Team("teamA");
+    em.persist(teamA);
+
+    Member member1 = new Member("member1");
+    Member member2 = new Member("member2");
+    member1.setTeam(teamA);
+    em.persist(member1);
+    em.persist(member2);
+
+    em.flush();
+    em.clear();
+
+    // when
+    Member member = new Member("member1");
+    Team team = new Team("teamA");
+    member.setTeam(team);
+
+    // 문제점 : inner join만 가능
+    ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("age");
+    Example<Member> example = Example.of(member, matcher);
+
+    List<Member> result = memberRepository.findAll(example);
+
+    Assertions.assertEquals(result.get(0).getUsername(), member1.getUsername());
   }
 }
