@@ -7,6 +7,7 @@ import static org.example.querydsl.entity.QTeam.*;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import java.util.List;
 import org.example.querydsl.entity.Member;
 import org.example.querydsl.entity.QMember;
@@ -267,5 +268,37 @@ public class QuerydslBasicTest {
     for (Tuple tuple : result) {
       System.out.println("tuple = " + tuple);
     }
+  }
+
+  @Autowired
+  EntityManagerFactory emf;
+
+  @Test
+  public void fetchJoinNo() {
+    em.flush();
+    em.clear();
+
+    Member findMember = queryFactory
+        .selectFrom(member)
+        .where(member.username.eq("member1"))
+        .fetchOne();
+
+    boolean loaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+    assertThat(loaded).as("페치 조인 미적용").isFalse();
+  }
+
+  @Test
+  public void fetchJoinUser() {
+    em.flush();
+    em.clear();
+
+    Member findMember = queryFactory
+        .selectFrom(member)
+        .where(member.username.eq("member1"))
+        .join(member.team, team).fetchJoin()
+        .fetchOne();
+
+    boolean loaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+    assertThat(loaded).as("페치 조인 적용").isTrue();
   }
 }
