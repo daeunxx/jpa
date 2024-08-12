@@ -5,6 +5,7 @@ import static org.example.querydsl.entity.QMember.*;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 import org.example.querydsl.entity.Member;
 import org.example.querydsl.entity.QMember;
 import org.example.querydsl.entity.Team;
@@ -87,5 +88,25 @@ public class QuerydslBasicTest {
 
     assertThat(findMember.getUsername()).isEqualTo("member1");
     assertThat(findMember.getAge()).isEqualTo(10);
+  }
+
+  @Test
+  public void resultFetch() {
+    List<Member> fetch = queryFactory
+        .selectFrom(member)
+        .fetch();
+
+    Member fetchOne = queryFactory
+        .selectFrom(member)
+        .fetchOne();
+
+    Member fetchFirst = queryFactory
+        .selectFrom(member)
+        .fetchFirst();
+
+    Long totalCount = queryFactory
+        .select(member.count())
+        .from(member)
+        .fetchOne();
   }
 }
