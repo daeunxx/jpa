@@ -16,6 +16,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.List;
 import org.example.querydsl.dto.MemberDto;
+import org.example.querydsl.dto.QMemberDto;
 import org.example.querydsl.dto.UserDto;
 import org.example.querydsl.entity.Member;
 import org.example.querydsl.entity.QMember;
@@ -565,6 +566,18 @@ public class QuerydslBasicTest {
 
     for (UserDto userDto : result) {
       System.out.println("userDto = " + userDto);
+    }
+  }
+
+  @Test
+  public void findDtoByQueryProjection() {
+    List<MemberDto> result = queryFactory
+        .select(new QMemberDto(member.username, member.age))
+        .from(member)
+        .fetch();
+
+    for (MemberDto memberDto : result) {
+      System.out.println("memberDto = " + memberDto);
     }
   }
 }
