@@ -5,12 +5,16 @@ import static org.example.querydsl.entity.QTeam.team;
 import static org.springframework.util.StringUtils.hasText;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 import org.example.querydsl.dto.MemberSearchCond;
 import org.example.querydsl.dto.MemberTeamDto;
 import org.example.querydsl.dto.QMemberTeamDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 
 public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
@@ -38,6 +42,40 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
             ageGoe(cond.getAgeGoe()),
             ageLoe(cond.getAgeLoe()))
         .fetch();
+  }
+
+  @Override
+  public Page<MemberTeamDto> searchPage(MemberSearchCond cond, Pageable pageable) {
+    List<MemberTeamDto> content = queryFactory
+        .select(new QMemberTeamDto(
+            member.id.as("memberId"),
+            member.username,
+            member.age,
+            team.id.as("teamId"),
+            team.name.as("teamName"))
+        )
+        .from(member)
+        .leftJoin(member.team, team)
+        .where(
+            usernameEq(cond.getUsername()),
+            teamNameEq(cond.getTeamName()),
+            ageGoe(cond.getAgeGoe()),
+            ageLoe(cond.getAgeLoe()))
+        .offset(pageable.getOffset())
+        .limit(pageable.getPageSize())
+        .fetch();
+
+    JPAQuery<Long> countQuery = queryFactory
+        .select(member.count())
+        .from(member)
+        .leftJoin(member.team, team)
+        .where(
+            usernameEq(cond.getUsername()),
+            teamNameEq(cond.getTeamName()),
+            ageGoe(cond.getAgeGoe()),
+            ageLoe(cond.getAgeLoe()));
+
+    return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
   }
 
   private BooleanExpression usernameEq(String username) {
