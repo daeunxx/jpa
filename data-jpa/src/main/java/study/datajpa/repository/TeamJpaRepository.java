@@ -11,34 +11,34 @@ import java.util.Optional;
 @Repository
 public class TeamJpaRepository {
 
-    @PersistenceContext
-    EntityManager em;
+  @PersistenceContext
+  EntityManager em;
 
-    public Team save(Team team) {
-        em.persist(team);
-        return team;
-    }
+  public Team save(Team team) {
+    em.persist(team);
+    return team;
+  }
 
-    public Team find(Long id) {
-        return em.find(Team.class, id);
-    }
+  public Team find(Long id) {
+    return em.find(Team.class, id);
+  }
 
-    public List<Team> findAll() {
-        return em.createQuery("select t from Team t", Team.class)
-                .getResultList();
-    }
+  public List<Team> findAll() {
+    return em.createQuery("select t from Team t", Team.class)
+        .getResultList();
+  }
 
-    public Optional<Team> findById(Long id) {
-        Team team = find(id);
-        return Optional.ofNullable(team);
-    }
+  public Optional<Team> findById(Long id) {
+    Team team = find(id);
+    return Optional.ofNullable(team);
+  }
 
-    public long count() {
-        return em.createQuery("select count(t) from Team t", Long.class)
-                .getSingleResult();
-    }
+  public long count() {
+    return em.createQuery("select count(t) from Team t", Long.class)
+        .getSingleResult();
+  }
 
-    public void delete(Team team) {
-        em.remove(team);
-    }
+  public void delete(Team team) {
+    em.remove(team);
+  }
 }

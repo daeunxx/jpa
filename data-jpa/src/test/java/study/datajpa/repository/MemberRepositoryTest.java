@@ -576,7 +576,8 @@ class MemberRepositoryTest {
     em.clear();
 
     // when
-    List<NestedClosedProjections> result = memberRepository.findProjectionsByUsername("member1", NestedClosedProjections.class);
+    List<NestedClosedProjections> result = memberRepository.findProjectionsByUsername("member1",
+        NestedClosedProjections.class);
 
     result.forEach(r -> {
       System.out.println("r.getUsername() = " + r.getUsername());
@@ -597,7 +598,7 @@ class MemberRepositoryTest {
 
     em.flush();
     em.clear();
-    
+
     // when
     Page<MembeProjection> result = memberRepository.findByNativeProjection(
         PageRequest.of(0, 10));

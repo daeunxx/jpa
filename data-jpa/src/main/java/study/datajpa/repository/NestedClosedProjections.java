@@ -9,6 +9,7 @@ public interface NestedClosedProjections {
   TeamInfo getTeam();
 
   interface TeamInfo {
+
     String getName();
   }
 }

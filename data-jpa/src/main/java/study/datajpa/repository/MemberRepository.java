@@ -91,6 +91,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
   @Query(value = "select m.member_id as id, m.username, t.name as teamName " +
       "from member m left join team t",
       countQuery = "select count(*) from member"
-      ,nativeQuery = true)
+      , nativeQuery = true)
   Page<MembeProjection> findByNativeProjection(Pageable pageable);
 }
