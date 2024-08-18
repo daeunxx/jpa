@@ -23,8 +23,11 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
 
   List<Member> findTop3HelloBy();
 
-  //    @Query(name = "Member.findByUsername")
-//    List<Member> findByUsername(@Param("username") String username);
+/*
+  @Query(name = "Member.findByUsername")
+  List<Member> findByUsername(@Param("username") String username);
+*/
+
   List<Member> findByUsername(String username);
 
   @Query("select m from Member m where m.username = :username and m.age = :age")
@@ -39,11 +42,11 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
   @Query("select m from Member m where m.username in :names")
   List<Member> findByNames(@Param("names") List<String> names);
 
-  List<Member> findListByUsername(String username); // 컬렉션
+  List<Member> findListByUsername(String username); //컬렉션
 
-  Member findMemberByUsername(String username);   // 단건
+  Member findMemberByUsername(String username);   //단건
 
-  Optional<Member> findOptionalByUsername(String usrename);
+  Optional<Member> findOptionalByUsername(String username);
 
   Page<Member> findPageByAge(int age, Pageable pageable);
 
@@ -55,7 +58,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
   Page<Member> findMembersByAge(@Param("age") int age, Pageable pageable);
 
   @Modifying(clearAutomatically = true)
-//  @Modifying
+  //@Modifying
   @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
   int bulkAgePlus(@Param("age") int age);
 
