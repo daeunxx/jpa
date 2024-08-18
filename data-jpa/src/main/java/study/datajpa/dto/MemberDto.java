@@ -10,13 +10,19 @@ public class MemberDto {
 
   private Long id;
   private String username;
-  private int age;
   private String teamName;
+  private int age;
 
   public MemberDto(Long id, String username, int age) {
     this.id = id;
     this.username = username;
     this.age = age;
+  }
+
+  public MemberDto(Long id, String username, String teamName) {
+    this.id = id;
+    this.username = username;
+    this.teamName = teamName;
   }
 
   public MemberDto(Member member) {

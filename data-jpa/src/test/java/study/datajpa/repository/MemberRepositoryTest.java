@@ -3,6 +3,7 @@ package study.datajpa.repository;
 import static org.assertj.core.api.Assertions.*;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +36,10 @@ class MemberRepositoryTest {
   @Autowired
   TeamRepository teamRepository;
 
-  @PersistenceContext
+  @Autowired
+  EntityManagerFactory emf;
+
+  @Autowired
   EntityManager em;
 
   @Test
@@ -289,7 +293,7 @@ class MemberRepositoryTest {
     PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Direction.DESC, "username"));
 
     Page<Member> members = memberRepository.findMembersByAge(age, pageRequest);
-    Page<MemberDto> toMap = members.map(m -> new MemberDto(m.getId(), m.getUsername(), 10));
+    Page<MemberDto> toMap = members.map(m -> new MemberDto(m.getId(), m.getUsername(), m.getAge()));
 
     toMap.forEach(System.out::println);
   }
@@ -329,7 +333,7 @@ class MemberRepositoryTest {
     teamRepository.save(teamB);
 
     Member member1 = new Member("member1", 10, teamA);
-    Member member2 = new Member("member2", 20, teamA);
+    Member member2 = new Member("member2", 20, teamB);
     memberRepository.save(member1);
     memberRepository.save(member2);
 
@@ -342,11 +346,12 @@ class MemberRepositoryTest {
 
     members.forEach(m -> {
       System.out.println("m.getUsername() = " + m.getUsername());
-//      System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
-      System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
+      System.out.println("m.getTeam() isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(m.getTeam()));
 
       // members에서 프록시로 가져왔기 때문에 바로 위에서 초기화되어도 프록시 클래스로 조회됨
+      System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
       System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
+      System.out.println("m.getTeam() isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(m.getTeam()));
     });
   }
 
@@ -374,13 +379,40 @@ class MemberRepositoryTest {
 
     members.forEach(m -> {
       System.out.println("m.getUsername() = " + m.getUsername());
+      System.out.println("Hibernate.isInitialized(m.getTeam()) = " + Hibernate.isInitialized(m.getTeam()));
       System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
     });
+  }
 
-    // 지연로딩 여부 확인
-    boolean initialized = Hibernate.isInitialized(members.get(0).getTeam());
-    System.out.println("initialized = " + initialized);
+  @Test
+  public void findMemberGetTeamGraph() {
+    // given
+    // member1 -> teamA
+    // member2 -> teamB
+
+    Team teamA = new Team("teamA");
+    Team teamB = new Team("teamB");
+    teamRepository.save(teamA);
+    teamRepository.save(teamB);
+
+    Member member1 = new Member("member1", 10, teamA);
+    Member member2 = new Member("member2", 20, teamB);
+    memberRepository.save(member1);
+    memberRepository.save(member2);
+
+    em.flush();
+    em.clear();
+
+    // when
+    List<Member> members = memberRepository.findMemberEntityGraph();
+
+    members.forEach(m -> {
+      System.out.println("m.getUsername() = " + m.getUsername());
+      System.out.println("m.getTeam() isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(m.getTeam()));
+      System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
+      System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
+    });
   }
 
   @Test
@@ -407,6 +439,7 @@ class MemberRepositoryTest {
 
     members.forEach(m -> {
       System.out.println("m.getUsername() = " + m.getUsername());
+      System.out.println("m.getTeam() isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(m.getTeam()));
       System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
       System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
     });
