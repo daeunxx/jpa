@@ -18,7 +18,7 @@ public class Item implements Persistable<String> {
   @Id
   private String id;
 
-  // @CreatedDate는 결국 JPA Event -> persist가 되기 전에 호출됨
+  //@CreatedDate는 결국 JPA Event -> persist 되기 전에 호출됨
   @CreatedDate
   private LocalDateTime createdDate;
 

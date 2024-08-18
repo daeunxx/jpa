@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -632,10 +631,10 @@ class MemberRepositoryTest {
     em.clear();
 
     // when
-    Page<MembeProjection> result = memberRepository.findByNativeProjection(
+    Page<MemberProjection> result = memberRepository.findByNativeProjection(
         PageRequest.of(0, 10));
 
-    List<MembeProjection> contents = result.getContent();
+    List<MemberProjection> contents = result.getContent();
     contents.forEach(content -> {
       System.out.println("content.getUsername() = " + content.getUsername());
       System.out.println("content.getTeamName() = " + content.getTeamName());

@@ -1,6 +1,6 @@
 package study.datajpa.repository;
 
-public interface MembeProjection {
+public interface MemberProjection {
 
   Long getId();
 
