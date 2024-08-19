@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("io.freefair.lombok") version "8.0.1"
 }
 
 group = "jpa-basic"
@@ -19,6 +20,9 @@ dependencies {
     implementation 'com.h2database:h2:2.1.214'
 
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.test {
