@@ -16,7 +16,6 @@ public class JpaMain {
     tx.begin();
 
     try {
-
       Team team1 = new Team();
       team1.setName("team1");
       em.persist(team1);
@@ -43,8 +42,8 @@ public class JpaMain {
       meber3.setTeam(team2);
       em.persist(meber3);
 
-//      em.flush();
-//      em.clear();
+      //em.flush();
+      //em.clear();
 
       int resultCount = em.createQuery("update Member m set m.age = 20")
           .executeUpdate();
@@ -53,9 +52,7 @@ public class JpaMain {
       System.out.println("resultCount = " + resultCount);
       System.out.println("findMember.getAge() = " + findMember.getAge());
 
-
       tx.commit();
-
     } catch (Exception e) {
       e.printStackTrace();
       tx.rollback();

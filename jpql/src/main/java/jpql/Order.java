@@ -11,11 +11,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "ORDERS")
 public class Order {
 
-  @Id @GeneratedValue
+  @Id
+  @GeneratedValue
   private Long id;
   private int orderAmount;
 
